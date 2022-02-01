@@ -1,14 +1,14 @@
 const { notes } = require('./db/db.json');
 const fs = require('fs');
 const { v4: uuidv4 } = require("uuid");
+const path = require('path');
 
 const express = require("express");
 const app = express();
 
-const path = require('path');
 
 const PORT = process.env.PORT || 3000;
-
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
@@ -27,6 +27,8 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
   let note = req.body;
   note.id = uuidv4();
+  notes.push(note);
+  fs.writeFileSync(path.join(__dirname, './db/db.json'), JSON.stringify({ notes: notes}, null, 2));
   res.json(note);
 })
 
