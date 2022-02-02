@@ -6,13 +6,13 @@ const path = require('path');
 const express = require("express");
 const app = express();
 
-
 const PORT = process.env.PORT || 3000;
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
 });
 
@@ -43,6 +43,7 @@ app.delete('/api/notes/:id', (req, res) => {
   fs.writeFileSync(path.join(__dirname, './db/db.json'), JSON.stringify({ notes: notes}, null, 2));
   res.json(target);
 })
+
 app.listen(PORT, () => {
   console.log("Listening on " + PORT);
 });
