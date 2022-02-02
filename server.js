@@ -60,6 +60,11 @@ app.delete('/api/notes/:id', (req, res) => {
   res.json(target);
 })
 
+// wildcard route
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./public/index.html"));
+});
+
 // start the server listening, locally on 3000 or on whatever port used by the environment
 app.listen(PORT, () => {
   console.log("Listening on " + PORT);
