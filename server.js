@@ -1,4 +1,4 @@
-let { notes } = require('./db/db.json');
+const { notes } = require('./db/db.json');
 const fs = require('fs');
 const { v4: uuidv4 } = require("uuid");
 const path = require('path');
@@ -41,7 +41,6 @@ app.delete('/api/notes/:id', (req, res) => {
     }
   }
   fs.writeFileSync(path.join(__dirname, './db/db.json'), JSON.stringify({ notes: notes}, null, 2));
-  console.log(notes);
   res.json(target);
 })
 app.listen(PORT, () => {
